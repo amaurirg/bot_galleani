@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from bot_webhook.core.views import home
+from bot_webhook.core.views import home, event
 
 
 urlpatterns = [
     url(r'^$', home),
     url(r'^admin/', admin.site.urls),
+    url(r'^event/', event),
 ]
