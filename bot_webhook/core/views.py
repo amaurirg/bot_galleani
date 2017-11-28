@@ -2,8 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+import json
+from bot_webhook.core.utils import send_message
 
-# Create your views here.
 
 def home(request):
     return render(request, "index.html")
@@ -11,6 +12,10 @@ def home(request):
 
 @csrf_exempt
 def event(requests):
-    print(requests.body)
-    return JsonResponse({'status': 'true', 'message': 'worked'})
-    # return HttpResponse()
+    json_list = json.loads(requests.body)
+    first_name = json_list['message']['chat']['first_name']
+    chat_id = json_list['message']['chat']['id']
+    text_message = json_list['message']['text']
+    print(chat_id)
+    send_message('{}, sua mensagem ao contrário é\n{}'.format(first_name, text_message[::-1]), chat_id)
+    return HttpResponse()
