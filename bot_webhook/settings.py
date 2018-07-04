@@ -13,6 +13,15 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 from decouple import config, Csv
 from dj_database_url import parse as dburl
+from requests import get, post
+
+
+TOKEN = config('TOKEN')
+
+URL_WEBHOOK = "https://dca0a749.ngrok.io/event/"
+URL_SET_WEBHOOK = "https://api.telegram.org/bot{}/setWebhook?url={}".format(TOKEN, URL_WEBHOOK)
+print(URL_SET_WEBHOOK)
+get(URL_SET_WEBHOOK)
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -122,3 +131,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+APPEND_SLASH=False
